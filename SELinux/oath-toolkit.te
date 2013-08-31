@@ -1,0 +1,33 @@
+policy_module(oath-toolkit,1.0.0)
+
+########################################
+#
+# Requirements
+#
+gen_require(
+    type sshd_t;
+    class dir { rw_dir_perms };
+    class file { manage_file_perms };
+)
+########################################
+#
+# Declarations
+#
+
+type oath_etc_t;
+files_type(oath_etc_t)
+
+type oath_users_t;
+files_config_file(oath_users_t)
+
+gen_tunable(ssh_allow_oath_auth, false)
+
+########################################
+#
+#  local policy
+#
+
+tunable_policy(ssh_allow_oath_auth,
+    filetrans_pattern(sshd_t, oath_etc_t, oath_users_t, file)
+    manage_files_pattern(sshd_t, oath_etc_t, oath_users_t)
+)

@@ -1,0 +1,2 @@
+/etc/oath/users.oath(\..+)? --  gen_context(system_u:object_r:oath_users_t,s0)
+/etc/oath                   -d  gen_context(system_u:object_r:oath_etc_t,s0)
